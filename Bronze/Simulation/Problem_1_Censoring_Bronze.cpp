@@ -10,32 +10,35 @@ using namespace std;
 #define ull unsigned long long
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
+void checkandremove(vector<char> &v, string &b) {
+    if (v.size()<b.size()) {return;}
+    int n  = b.size();
+    bool z=0;
+    int vs=v.size();
+    rep(i,0,n) {
+        z|=(b[n-1-i]!=v[vs-1-i]);
+        // cout<<z<<" "<<(b[n-1-i]!=v[n-1-i])<<endl;
+    }
+    if (!z) {
+        rep(i,0,n) {v.pop_back();}
+    }
+}
+
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
-        }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    string a,b;
+    cin>>a>>b;
+    vector<char> v;
+    for(auto x:a) {
+        v.pb(x);
+        checkandremove(v, b);
+    }      
+    for(auto x:v) {cout<<x;} cout<<endl;
 }
 
 int main() {
     //add quotes incase input output file
-    //freopen(input.txt,r,stdin);
-    //freopen(output.txt,w,stdout);
+    freopen("censor.in","r",stdin);
+    freopen("censor.out","w",stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;

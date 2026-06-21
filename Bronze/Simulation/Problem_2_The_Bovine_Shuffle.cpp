@@ -11,31 +11,26 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
-        }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    int n;
+    cin>>n;
+    int k;
+    map<int,int> mp;
+    rep(i,0,n) {
+        cin>>k;
+        mp[k-1]=i;
+    }
+    int a[n];
+    rep(i,0,n) {cin>>a[i];}
+    vector<int> ans(n);
+    rep(i,0,n) {
+    ans[mp[mp[mp[i]]]]=a[i]; }
+    rep(i,0,n) {cout<<ans[i]<<endl;}
 }
 
 int main() {
     //add quotes incase input output file
-    //freopen(input.txt,r,stdin);
-    //freopen(output.txt,w,stdout);
+    freopen("shuffle.in","r",stdin);
+    freopen("shuffle.out","w",stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;

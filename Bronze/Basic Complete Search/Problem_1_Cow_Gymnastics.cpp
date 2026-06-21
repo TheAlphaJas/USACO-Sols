@@ -11,31 +11,34 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
+    int k,n;
+    cin>>k>>n;
+    int a[k][n];
+    map<pair<int,int>, int> mp;
+    rep(i,0,k) {
+        rep(j,0,n) {
+            cin>>a[i][j];
+            mp[{i, a[i][j]}]=j;
         }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    }      
+    int cnt=0;
+    rep(i,1,n) {
+        rep(j,i,n+1-i) {
+            set<bool> S;
+            rep(z,0,k) {
+                S.insert((mp[{z,i}]-mp[{z,j}]) > 0);
+            }
+            
+            if (S.size()==1) {cnt++;}
+        }
+    }
+    cout<<cnt-n<<endl;
 }
 
 int main() {
     //add quotes incase input output file
-    //freopen(input.txt,r,stdin);
-    //freopen(output.txt,w,stdout);
+    freopen("gymnastics.in","r",stdin);
+    freopen("gymnastics.out","w",stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;

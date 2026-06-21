@@ -11,31 +11,27 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
+    int n;
+    cin>>n;
+    vector<int> freq(26,0), temp1(26,0), temp2(26,0);
+    string a,b;
+    set<char> S;
+    rep(i,0,n) {
+        cin>>a>>b;
+        for(auto x:a) {temp1[x-'a']++;}
+        for(auto x:b) {temp2[x-'a']++;}
+        rep(i,0,26) {
+            freq[i]+=max(temp1[i], temp2[i]);
+            temp1[i]=0; temp2[i]=0;
         }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    }
+    rep(i,0,26) {cout<<freq[i]<<endl;}
 }
 
 int main() {
     //add quotes incase input output file
-    //freopen(input.txt,r,stdin);
-    //freopen(output.txt,w,stdout);
+    freopen("blocks.in","r",stdin);
+    freopen("blocks.out","w",stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;

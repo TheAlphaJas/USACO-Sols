@@ -11,25 +11,27 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
+    vector<int> gs, ls;
+    int n,k;
+    char x;
+    cin>>n;
+    rep(i,0,n) {
+        cin>>x>>k;
+        if (x=='G') {gs.pb(k);} else {ls.pb(k);}
+    }
+    sort(all(gs));
+    sort(all(ls));
+    int ng = gs.size();
+    int nl = ls.size();
+    // cout<<ng<<" "<<nl<<endl;
+    lli ans = INT_MAX;
+    rep(i,0,ng) {
+        rep(j,0,nl) {
+            if (gs[i]<=ls[j]) { ans=min(ans,(lli)(ng-1-i+j));}
         }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    }
+    if (ans!=INT_MAX) {
+    cout<<ans<<endl;} else {cout<<min(nl,ng)<<endl;}
 }
 
 int main() {

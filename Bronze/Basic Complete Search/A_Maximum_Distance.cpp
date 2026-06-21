@@ -11,25 +11,18 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
+    int n;
+    cin>>n;
+    int x[n], y[n];
+    rep(i,0,n) {cin>>x[i];}
+    rep(i,0,n) {cin>>y[i];}
+    lli ans=0;
+    rep(i,0,n) {
+        rep(j,0,n) {
+            ans = max(ans, (lli)pow(x[i]-x[j],2)+(lli)pow(y[i]-y[j], 2));
         }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    }      
+    cout<<ans<<endl;
 }
 
 int main() {
@@ -39,7 +32,7 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;
-    // cin >> tc;
+    // cin >> tc;/
     for (int t = 1; t <= tc; t++) {
         solve();
     }

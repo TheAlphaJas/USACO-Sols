@@ -11,31 +11,30 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
-        }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    int n,a,b,c;
+    cin>>n;
+    vector<tuple<int,int,int>> v;
+    rep(i,0,n) {
+        cin>>a>>b>>c;
+        v.pb({a,b,c});
+    }      
+    vector<int> buckets(1005,0);
+    rep(i,0,n) {
+        buckets[get<0>(v[i])]+=get<2>(v[i]);
+        buckets[1+get<1>(v[i])]-=get<2>(v[i]);
+    }
+    int ans=0;
+    rep(i,1,buckets.size()-1) {
+        buckets[i]+=buckets[i-1];
+        ans=max(ans, buckets[i]);
+    }
+    cout<<ans<<endl;
 }
 
 int main() {
     //add quotes incase input output file
-    //freopen(input.txt,r,stdin);
-    //freopen(output.txt,w,stdout);
+    freopen("blist.in","r",stdin);
+    freopen("blist.out","w",stdout);
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     int tc = 1;

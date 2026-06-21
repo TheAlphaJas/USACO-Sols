@@ -11,25 +11,25 @@ using namespace std;
 bool sortbysec(const pair<ll,ll> &a,const pair<ll,ll> &b) { return (a.second < b.second); }
 
 void solve() {
-    ll int n,k;
-    cin>>n>>k;
-    ll int d[n];
-    rep(i,0,n) {cin>>d[i];}
-    //d+K
-    ll int nd = 1;
-    lli tstarts = 1;
-    bool running=1;
-    rep(i,1,n-1) {
-        if (d[i]==d[i-1]+1) {nd++;} else {
-            if (d[i] - d[i-1] - 1 > k) {
-                tstarts++;
-                nd++;
-            } else {
-                nd+=(d[i] - d[i-1]);
-            }
+    int n;
+    cin>>n;
+    char x;
+    vector<vector<int>> v(n, vector<int>(n));
+    rep(i,0,n) {
+        rep(j,0,n) {
+            cin>>x;
+            v[i][j] = x-'0';
+            // cin>>v[i][j];
         }
-    }    
-    cout<<k*tstarts + nd<<endl;  
+    }         
+    int cnt=0;
+    int ans=0;
+    for(int i = n-1;i>=0;i--) {
+        for(int j = n-1;j>=0;j--) {
+            if (v[i][j] == 1-cnt) {cnt=1-cnt; ans++;}
+        }
+    }
+    cout<<ans<<endl;
 }
 
 int main() {
